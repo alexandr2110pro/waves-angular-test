@@ -1,0 +1,4 @@
+export const TWITTER_API_ERRORS = {
+  INVALID_TOKEN: 'INVALID_TOKEN',
+};
+
