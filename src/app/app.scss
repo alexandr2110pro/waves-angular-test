@@ -1,32 +1,14 @@
-:root, body, app {
-  font-size: 14px;
-  font-family: "Roboto", "Trebuchet MS", "Helvetica", "Arial", sans-serif;
-  color: #666666;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
+@import "src/shared/styles/index";
 
 
+:root,
+html,
+body,
 app {
-  display: block;
-  background-color: #eeeeee;
-  font-size: 14px;
-}
-
-
-.app {
+  min-height: 100%;
   display: flex;
-  justify-content: space-around;
+  flex: 1;
   flex-direction: column;
-
-  &__header {
-    padding: 0 25px;
-    border-bottom: 1px solid #bbbbbb;
-    background-color: #ffffff;
-  }
-
-  &__main-content {
-    padding: 35px;
-  }
 }
+
+

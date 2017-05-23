@@ -9,7 +9,6 @@ describe('TwitterApiService', () => {
     PREFIX: '',
   };
 
-
   let twitterApiService;
   let $httpBackend;
 

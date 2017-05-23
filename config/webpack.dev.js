@@ -8,7 +8,7 @@ const WEBPACK_COMMON_CONFIG = require('./webpack.common');
 const { DIST_DIR }          = require('./directories');
 
 const WEBPACK_DEV_CONFIG = module.exports = merge(WEBPACK_COMMON_CONFIG, {
-  devtool: 'inline-source-map',
+  devtool: '#inline-source-map',
 
   output: {
     path: DIST_DIR,
@@ -22,10 +22,10 @@ const WEBPACK_DEV_CONFIG = module.exports = merge(WEBPACK_COMMON_CONFIG, {
     },
     inline: true,
     historyApiFallback: true,
-    noInfo: true,
+    noInfo: false,
     clientLogLevel: 'error',
     compress: false,
-    stats: 'minimal',
+    stats: 'normal',
     proxy: {
       '/api.twitter.com': 'http://localhost:3030',
     },

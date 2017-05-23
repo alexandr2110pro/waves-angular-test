@@ -1,0 +1,28 @@
+search-box {
+  display: block;
+
+  .search-box {
+
+    &__search-button {
+      &.is-loading::after { display: none }
+
+      &.is-loading::before {
+        animation: spinAround 500ms infinite linear;
+        border: 2px solid #dbdbdb;
+        border-radius: 290486px;
+        content: "";
+        display: block;
+        height: 1em;
+        position: relative;
+        width: 1em;
+        position: absolute;
+        left: calc(50% - (1em / 2));
+        top: calc(50% - (1em / 2));
+        position: absolute !important;
+        border-color: rgb(255, 255, 255) rgba(255, 255, 255, 0.86) rgba(255, 255, 255, .4) transparent !important;
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,12 @@
+nav-bar {
+  display: block;
+}
+
+
+.nav-bar {
+
+  &__content {
+    justify-content: space-around;
+    align-items: center;
+  }
+}

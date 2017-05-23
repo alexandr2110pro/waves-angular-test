@@ -32,13 +32,14 @@ const COMMON_WEBPACK_CONFIG = module.exports = {
   entry: ENTRIES,
 
   resolve: {
-    extensions: ['.js', '.scss', '.less'],
+    extensions: ['.js', '.sass', '.scss', '.less'],
     modules: [
       path.resolve('node_modules'),
       SRC_DIR,
     ],
     alias: {
       'src': path.resolve(SRC_DIR_NAME),
+      'shared': path.resolve(SRC_DIR_NAME, 'shared'),
     },
   },
 
@@ -84,7 +85,7 @@ const COMMON_WEBPACK_CONFIG = module.exports = {
       },
 
       {
-        test: /\.scss$/,
+        test: /\.(sass|scss)$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [

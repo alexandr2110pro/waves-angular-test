@@ -1,0 +1,31 @@
+<section class="search-box field is-grouped is-medium">
+
+  <p ng-class="{ 'is-loading': $ctrl.isLoading }"
+     class="control is-expanded has-icons-left is-primary">
+
+    <input class="input is-medium is-primary search-box__input-field"
+           type="text"
+           autofocus="autofocus"
+           placeholder="Search tweets!"
+           ng-model-options="{
+              updateOn: 'default blur',
+              debounce: 300,
+           }"
+           ng-model="$ctrl.searchQuery"
+           ng-change="$ctrl.makeSearch()">
+
+    <span class="icon is-left">
+      <i class="fa fa-search"></i>
+    </span>
+
+  </p>
+
+
+  <p class="control is-medium">
+    <a class="search-box__search-button button is-primary is-inverted is-outlined is-medium"
+       ng-class="{ 'is-loading': $ctrl.isLoading }"
+       ng-click="$ctrl.makeSearch()">Search
+    </a>
+  </p>
+
+</section>

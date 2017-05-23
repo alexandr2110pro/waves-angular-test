@@ -1,0 +1,24 @@
+<nav class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+
+      <div class="columns nav-bar__content">
+
+        <div class="column is-narrow">
+          <h1 class="title">
+            Twrch
+          </h1>
+          <h2 class="subtitle">
+            Twitter API Search
+          </h2>
+        </div>
+
+        <div class="column is-8">
+          <search-box options="$ctrl.searchOptions"
+                      on-change="$ctrl.onSearchQueryChange(query)">
+          </search-box>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

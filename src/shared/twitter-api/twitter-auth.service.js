@@ -20,6 +20,10 @@ export class TwitterAuthService {
     this._TwitterApiStateService = TwitterApiStateService;
   }
 
+  ensureAuthorized() {
+    if (this._TwitterApiStateService.isAuthorized()) return;
+    this.createAccessToken();
+  }
 
   createAccessToken() {
     const options = {
@@ -49,7 +53,7 @@ export class TwitterAuthService {
   _getCreateATHeaders() {
     return {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      'Authorization': `Basic ${this._getAuthorizationToken}`,
+      'Authorization': `Basic ${this._getAuthorizationToken()}`,
     };
   }
 }

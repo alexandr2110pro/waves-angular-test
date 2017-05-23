@@ -5,7 +5,7 @@ describe('App', () => {
   });
 
   it('should have proper title', () => {
-    expect(browser.getTitle()).toEqual('NPM Webpack Build System');
+    expect(browser.getTitle()).toEqual('Waves Test App');
   });
 
 });

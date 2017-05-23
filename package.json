@@ -51,7 +51,7 @@
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.5",
     "source-map-loader": "^0.2.1",
-    "style-loader": "^0.17.0",
+    "style-loader": "^0.18.1",
     "url-loader": "^0.5.8",
     "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-middleware": "^1.10.2",
@@ -60,7 +60,8 @@
   },
   "dependencies": {
     "angular": "^1.6.4",
-    "corsproxy": "^1.5.0",
+    "bulma": "^0.4.1",
+    "corsproxy-https": "^1.5.2",
     "cross-env": "^5.0.0",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
@@ -86,7 +87,7 @@
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production node server",
     "start:corsproxy": "cross-env CORSPROXY_PORT=3030 corsproxy",
-    "start:dev": "cross-env NODE_ENV=development webpack-dev-server --colors --progress --content-base ./src/ --config ./config/webpack.dev.js",
+    "start:dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --content-base ./src --config ./config/webpack.dev.js",
     "webdriver-update": "webdriver-manager update",
     "webdriver-start": "webdriver-manager start"
   }

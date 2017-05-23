@@ -1,39 +1,32 @@
 import _isObject from 'lodash/isObject';
+
 import { StatefulService } from 'shared/state';
+
+import { TWITTER_API_ERRORS } from './twitter-api-errors.constant';
 
 
 export class TwitterApiStateService extends StatefulService {
 
-  /**
-   * @param TWITTER_API_ERRORS
-   */
+  static INITIAL_STATE = {
+    authorized: false,
+    token: null,
+  };
 
-  constructor(TWITTER_API_ERRORS) {
-    'ngInject';
-
-    super('TWITTER_API', true, null);
-
-    this._TWITTER_API_ERRORS = TWITTER_API_ERRORS;
-    this._setState()
+  constructor() {
+    super('TWITTER_API', true);
   }
 
   setAccessToken(token) {
     if (!this._validateAccessToken(token)) {
-      throw new Error(this._TWITTER_API_ERRORS.INVALID_TOKEN);
+      throw new Error(TWITTER_API_ERRORS.INVALID_TOKEN);
     }
 
-    return this._updateState({
-      token,
-      authorized: true,
-    })
-
+    this._updateState({ token, authorized: true });
   }
 
+
   clearAccessToken() {
-    this._updateState({
-      token: null,
-      authorized: false,
-    });
+    this._updateState({ token: null, authorized: false });
   }
 
   getAccessToken() {

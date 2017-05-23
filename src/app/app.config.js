@@ -7,4 +7,5 @@ export const appConfig = ($locationProvider, $httpProvider) => {
   'ngInject';
 
   $locationProvider.html5Mode(false);
+  $httpProvider.useApplyAsync(true);
 }

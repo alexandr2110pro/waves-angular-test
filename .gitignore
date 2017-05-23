@@ -492,3 +492,4 @@ Temporary Items
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+!/src/modules/search/components/search-results/mocks/search-box.service.mock.js

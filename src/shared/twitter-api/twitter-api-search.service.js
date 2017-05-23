@@ -3,9 +3,8 @@ import { StatefulService } from 'shared/state';
 
 export class TwitterApiSearchService extends StatefulService {
 
-
   _RESOURCES = {
-    TWEETS_SEARCH: 'search/tweets.json',
+    TWEETS_SEARCH: '1.1/search/tweets.json',
   };
 
   /**
@@ -16,11 +15,20 @@ export class TwitterApiSearchService extends StatefulService {
   constructor(TWITTER_API_SEARCH_ACTIONS, TwitterApiService) {
     'ngInject';
 
-    super('twitter-api', true, null, TWITTER_API_SEARCH_ACTIONS);
+    super('TWITTER_API_SEARCH', false, null, TWITTER_API_SEARCH_ACTIONS);
 
     this._TwitterApiService = TwitterApiService;
   }
 
-  search() {
+  search(query, params) {
+    const getParams = {
+      ...params,
+      q: query,
+    };
+
+    return this._TwitterApiService
+      .get(this._RESOURCES.TWEETS_SEARCH, { params: getParams });
   }
+
+
 }

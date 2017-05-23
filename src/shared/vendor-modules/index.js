@@ -1,7 +1,6 @@
-import angular from 'angular';
+import * as angular from 'angular';
 
-
-const VENDOR_MODULES = {}
+const VENDOR_MODULES = [];
 
 export {
   angular,

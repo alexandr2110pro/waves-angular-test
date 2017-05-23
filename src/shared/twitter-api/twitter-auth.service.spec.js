@@ -3,10 +3,16 @@ import { TWITTER_API } from './index';
 
 
 describe('TwitterAuthService', () => {
-  let twitterAuthService;
-  let TWITTER_API_ERRORS;
   let $httpBackend;
+
+  let TWITTER_API_ERRORS;
+
+  /** @type {TwitterAuthService} */
+  let TwitterAuthService;
+
+  /** @type {TwitterApiStateService} */
   let TwitterApiStateService;
+
 
   const MOCK_API_CONFIG = {
     AUTHORIZATION_TOKEN: 'test',
@@ -14,7 +20,10 @@ describe('TwitterAuthService', () => {
     PREFIX: '',
   };
 
+
   beforeEach(() => {
+    window.localStorage.clear();
+
     angular
       .module('test', [TWITTER_API])
       .constant('TWITTER_API_CONFIG', MOCK_API_CONFIG);
@@ -24,9 +33,10 @@ describe('TwitterAuthService', () => {
 
 
   beforeEach(angular.mock.inject($injector => {
-    $httpBackend           = $injector.get('$httpBackend');
-    twitterAuthService     = $injector.get('TwitterAuthService');
+    $httpBackend = $injector.get('$httpBackend');
+
     TWITTER_API_ERRORS     = $injector.get('TWITTER_API_ERRORS');
+    TwitterAuthService     = $injector.get('TwitterAuthService');
     TwitterApiStateService = $injector.get('TwitterApiStateService');
   }));
 
@@ -50,19 +60,22 @@ describe('TwitterAuthService', () => {
 
     const tokenResponse = { access_token: 'aaaa', token_type: 'bearer' };
 
+
     beforeEach(() => {
+      const checkHeaders = headers => !_find(expectedHeaders, (v, k) => headers[k] !== v);
       $httpBackend
-        .whenPOST(url, data, (headers) => {
-          return _find(expectedHeaders, (v, k) => headers[k] !== v);
-        })
+        .whenPOST(url, data, checkHeaders)
         .respond(200, tokenResponse);
     });
+
+
+    //  ------------------------------------
 
 
     it('should send the POST request to /oauth2/token', () => {
       $httpBackend.expectPOST(url, data);
 
-      twitterAuthService
+      TwitterAuthService
         .createAccessToken()
         .then(actual => expect(actual).toEqual(tokenResponse));
 
@@ -72,13 +85,42 @@ describe('TwitterAuthService', () => {
 
     it('should call TwitterApiStateService#setAccessToken', () => {
       spyOn(TwitterApiStateService, 'setAccessToken');
+
       $httpBackend.expectPOST(url, data);
 
-      twitterAuthService.createAccessToken();
+      TwitterAuthService.createAccessToken();
       $httpBackend.flush();
 
-      expect(TwitterApiStateService.setAccessToken)
-        .toHaveBeenCalledWith(tokenResponse);
+      expect(TwitterApiStateService.setAccessToken).toHaveBeenCalledWith(tokenResponse);
+    });
+  });
+
+
+  describe('#ensureAuthorized()', () => {
+
+    beforeEach(() => {
+      spyOn(TwitterAuthService, 'createAccessToken');
+    });
+
+
+    it('should call #createAccessToken() if not authorized yet', () => {
+      TwitterApiStateService.isAuthorized   = () => false;
+      TwitterApiStateService.getAccessToken = () => null;
+
+      TwitterAuthService.ensureAuthorized();
+      expect(TwitterAuthService.createAccessToken).toHaveBeenCalled();
+    });
+
+
+    it('should not call #createAccessToken() if authorized', () => {
+      TwitterApiStateService.isAuthorized   = () => true;
+      TwitterApiStateService.getAccessToken = () => ({
+        access_token: 'token',
+        token_type: 'bearer',
+      });
+
+      TwitterAuthService.ensureAuthorized();
+      expect(TwitterAuthService.createAccessToken).not.toHaveBeenCalled();
     });
 
   });

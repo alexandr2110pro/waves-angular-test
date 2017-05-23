@@ -1,73 +1,61 @@
-# The world's most cutting edge Webpack2 Angular 1.5 Build System
+# Waves Angular Challenge.
 
-## To use run the following commands ##
+#### Initial task description
 
-``npm install``
+The app supposed to allow the user to search tweets using Twitter's search api.
 
-``npm run jade``
+The app should allow pagination (load previous tweets).
 
-``npm run watch``
 
-In addition for this to work, you will have to download the chrome dev tools.
+#### Demo
 
-Build is influenced by architecture found in the [AngularJS Best Practices: Directory Structure Article](https://scotch.io/tutorials/angularjs-best-practices-directory-structure)
+Currently, it's not deployed anywhere. Please, see `./demo` for the screensnap gifs & run locally in order to see the results.
 
-### The following is the file architecture for this project ###
-- app
-  - shared   // acts as reusable components or partials of our site
-    - sidebar/
-      - sidebarDirective.js
-      - sidebarView.html
-    - article/
-      - articleDirective.js
-      - articleView.html
-  - components/   // each component is treated as a mini Angular app
-    - home/
-      - homeController.js
-      - homeService.js
-      - homeView.html
-    - blog/
-      - blogController.js
-      - blogService.js
-      - blogView.html
-  - app.module.js
-  - app.routes.js
-- assets/
-  - img         // Images and icons for your app
-  - css      // All styles and style related files (SCSS or LESS files)
-  - js       // JavaScript files written for your app that are not for angular
-  - libs     // Third-party libraries such as jQuery, Moment, Underscore, etc.
-index.html
+#### Installation / Running
 
-As Angular 1.5 introduces components, this build tries to be as progressive as possible. For instance, it uses css-modules, testing with jasmine, karma, protracter, ng-redux, and eslint.
+Set environment variables:
 
- Some of the things that this build includes. Webpack
+(add these lines in your `.zshrc`/`.bashrc`/...
 
-* PUG
-  * pug-html-loader // Can write in pug and hook directly into angular template
-* Sass
-  * watch hot reloading
-  * Included in assets folder
-  * css-modules included!!!
-  * Autoprefixer - Automatically adds prefixes to css when needed
-* Webpack 2
-  * Automatically concatenate js files
-  * Allows importing and exporting modules as well
-  * Ease of configuration
-* NPM
-  * Packages are managed through NPM
-* Eslint
-  * Babel support included
-  * angular support
-  * uses airbnb eslinter  
-* redux
-  * Uses ng-redux
-  * redux dev tools included with use of redux tools chrome plugin
-* testing
-  * Mocha and chai
-  * Istanbul
-    * Preserves ES6 in reports
-  * e2e
-    * Uses protractor  
-* Yarn for super uber fast package management and stuff   
-* Typescript
+```bash
+export TWITTER_CONSUMER_KEY="<your consumer key>"
+export TWITTER_CONSUMER_SECRET="<your consumer token>"
+```
+> in order to obtain these keys, you have to:
+
+> 1. Register an application on https://apps.twitter.com/
+> 2. Go to your app and check the "Keys and Access Tokens" tab
+
+Make sure, you have the latest node.js & npm installed,
+
+**To run the app:**
+
+- clone this repo and navigate to its dir
+- run `npm install`
+- run `npm run start:corsproxy` (twitter doesn't allow cross-origin requests)
+- in the new terminal window, run `npm run start:dev`
+- open http://localhost:8080 in the browser
+
+
+**To run tests:**
+
+- `npm run test:unit` for unit tests
+- `npm run test:e2e` for E2E tests
+
+#### Implementation notes
+
+1. If I had more time, I would write more unit tests for components and E2E tests.
+2. Initially I was planning to decouple search-box and pagination components from the search implementation.
+ The search box is decoupled, but the pagination isn't.
+ The reason is the same - it would take too much time for the test task,
+ taking into account that the Twitter's pagination approach is quite unique.
+3. I'm using corsproxy instead of the custom node server... Just because the test was about the client-side app.
+4. If I had more time, I would also implement:
+   - advanced error handling services and corresponding UI components (to show errors)
+   - the logging system
+   - loading screens & etc
+   - better next/prev page UX
+   - saving pagination params to the URL in the similar fashion, as I did for the search query
+   - handling of corner cases, like no search results(there could be several options, btw) & etc.
+   - more decoupling and better responsibility assignment (completely encapsulate all twitter-specific logic into twitter-api module & other things like that)
+   - setup the code coverage and CI services

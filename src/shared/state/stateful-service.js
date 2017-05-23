@@ -7,18 +7,29 @@ import { NamedState } from './named-state';
 import { PersistableState } from './persistable-state';
 
 
-/**
- * See stateful-service.spec.js for usage details
- */
 export class StatefulService extends PubSub {
 
-  constructor(statePath, persistable = false, actionsPrefix = null, actions) {
+  static INITIAL_STATE = null;
+
+  /**
+   * @param {string} statePath
+   * @param {boolean} [persistable=false]
+   * @param {string|null} [actionsPrefix=null]
+   * @param {Object} [actions]
+   * @param {Object|*} [initialState]
+   */
+  constructor(statePath,
+    persistable   = false,
+    actionsPrefix = null,
+    actions,
+    initialState) {
+
     super();
 
-    /** @type {PersistableState|NamedState} */
-    this._state = persistable
-      ? new PersistableState(statePath, actionsPrefix)
-      : new NamedState(statePath, actionsPrefix);
+    const initial = initialState || this.constructor.INITIAL_STATE;
+    this._state   = persistable
+      ? new PersistableState(statePath, actionsPrefix, initial)
+      : new NamedState(statePath, actionsPrefix, initial);
 
     this._enrichActions({
       actionsPrefix: actionsPrefix || this._state.getActionsPrefix(),

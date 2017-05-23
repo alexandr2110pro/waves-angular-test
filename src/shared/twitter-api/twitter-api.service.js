@@ -1,14 +1,19 @@
 import { join } from 'path';
+import { PubSub } from 'shared/pub-sub';
 import { TwitterApiHTTPException } from './twitter-api-http-exception';
 
 
-export class TwitterApiService {
+export class TwitterApiService extends PubSub {
 
   _METHODS = {
     GET: 'GET',
     POST: 'POST',
   };
 
+  ACTIONS = {
+    HTTP_EXCEPTION: 'HTTP_EXCEPTION',
+    HTTP_SUCCESS: 'HTTP_EXCEPTION',
+  };
 
   /**
    * @param {angular.IHttpService} $http
@@ -16,6 +21,7 @@ export class TwitterApiService {
    */
   constructor($http, TWITTER_API_CONFIG) {
     'ngInject';
+    super();
 
     this._$http = $http;
 
@@ -68,11 +74,16 @@ export class TwitterApiService {
   }
 
   _handleResponse(response) {
-    return response.data;
+    const { data } = response;
+    this.publish({ type: this.ACTIONS.HTTP_SUCCESS, data });
+    return data;
   }
 
   _handleRejection(rejection) {
     const { status, data } = rejection;
-    return Promise.reject(new TwitterApiHTTPException(status, data));
+
+    const exception = new TwitterApiHTTPException(status, data);
+    this.publish({ type: this.ACTIONS.HTTP_EXCEPTION, exception });
+    return Promise.reject(exception);
   }
 }

@@ -25,17 +25,7 @@ module.exports = config => {
         colors: true,
       },
     },
-    reporters: ['mocha', 'coverage'],
-    coverageReporter: {
-      dir: 'coverage/',
-      subdir: '.',
-      reporters: [
-        { type: 'cobertura', file: 'cobertura.xml' },
-        { type: 'text', file: 'text.txt' },
-        { type: 'text-summary', file: 'text-summary.txt' },
-        { type: 'html' },
-      ],
-    },
+    reporters: ['mocha'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
