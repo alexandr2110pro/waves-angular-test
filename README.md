@@ -15,14 +15,14 @@ Currently, it's not deployed anywhere. Please, see `./demo` for the screensnap g
 
 Set environment variables:
 
-(add these lines in your `.zshrc`/`.bashrc`/...
+(add these lines in your `.zshrc`/`.bashrc`/...)
 
 ```bash
 export TWITTER_CONSUMER_KEY="<your consumer key>"
-export TWITTER_CONSUMER_SECRET="<your consumer token>"
+export TWITTER_CONSUMER_SECRET="<your consumer secret>"
 ```
 > in order to obtain these keys, you have to:
-
+>
 > 1. Register an application on https://apps.twitter.com/
 > 2. Go to your app and check the "Keys and Access Tokens" tab
 

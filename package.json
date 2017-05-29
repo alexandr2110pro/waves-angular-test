@@ -70,22 +70,10 @@
     "uuid": "^3.0.1",
     "webpack": "^2.6.0"
   },
-  "nyc": {
-    "require": [
-      "babel-register"
-    ],
-    "include": [
-      "src/**/*.spec.js"
-    ],
-    "sourceMap": false,
-    "instrument": false
-  },
   "scripts": {
     "test:unit": "cross-env NODE_ENV=test karma start --single-run",
     "test:e2e": "cross-env NODE_ENV=test protractor",
     "build": "cross-env NODE_ENV=production DEBUG=false webpack --progress --optimize-minimize --config ./config/webpack.prod.js",
-    "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production node server",
     "start:corsproxy": "cross-env CORSPROXY_PORT=3030 corsproxy",
     "start:dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --content-base ./src --config ./config/webpack.dev.js",
     "webdriver-update": "webdriver-manager update",
