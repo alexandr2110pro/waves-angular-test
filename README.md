@@ -1,5 +1,8 @@
 # Waves Angular Challenge.
 
+
+![Waves Angular Challenge](./demo/header.png)
+
 #### Initial task description
 
 The app supposed to allow the user to search tweets using Twitter's search api.
